@@ -1,5 +1,6 @@
+"use client";
 import FeedCard from "@/components/feedCard";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { BiHomeCircle } from "react-icons/bi";
 import { BsTwitter, BsHash, BsEnvelope } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
@@ -16,6 +17,9 @@ import {
   BadgeOnDownleftSidebar,
 } from "@/app/initial-data/userDetails";
 import PostCard from "@/components/postCard";
+import HomeFeedCard from "@/components/homeFeedCard";
+import { useGetAllTweets } from "@/clients/hooks/tweet";
+import { Tweet } from "@/gql/graphql";
 
 interface twitterSidebar {
   title: String;
@@ -58,6 +62,9 @@ const sideBarMenuItems: twitterSidebar[] = [
 ];
 
 export default function Home() {
+  const { tweets = [] } = useGetAllTweets();
+
+  const [content, setContent] = useState("");
   return (
     <div>
       <div className="grid grid-cols-12  h-screen w-screen px-56  ">
@@ -89,11 +96,9 @@ export default function Home() {
         </div>
         <div className="col-span-6 border-r-[0.2px] border-l-[0.2px] border-gray-600 h-screen  overflow-auto no-scrollbar">
           <PostCard />
-          <FeedCard />
-          <FeedCard />
-          <FeedCard />
-          <FeedCard />
-          <FeedCard />
+          {tweets?.map((tweet) =>
+            tweet ? <FeedCard key={tweet?.id} data={tweet as Tweet} /> : null
+          )}
         </div>
         <div className="col-span-3 p-5">
           <UserDetails />

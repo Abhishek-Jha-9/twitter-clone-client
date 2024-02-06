@@ -7,8 +7,8 @@ import Image from "next/image";
 
 function UserDetails() {
   const { user } = useCurrentUser();
-  console.log("User Details");
-  console.log(user);
+  // console.log("User Details");
+  // console.log(user);
   return (
     <div>
       {!user && (

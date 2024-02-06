@@ -1,15 +1,17 @@
 "use client";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import Image from "next/image";
 // import { BiMessageRounded, BiUpload } from "react-icons/bi";
 // import { FaRetweet } from "react-icons/fa";
 // import { AiOutlineHeart } from "react-icons/ai";
 import { useCurrentUser } from "@/clients/hooks/user";
 import { BiImageAlt } from "react-icons/bi";
+import { useCreateTweet } from "@/clients/hooks/tweet";
 // import { HandleUploadImage } from "./googleLogin";
 
 const PostCard: React.FC = () => {
   const { user } = useCurrentUser();
+  const { mutate } = useCreateTweet();
   const HandleUploadImage = useCallback(() => {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
@@ -17,6 +19,13 @@ const PostCard: React.FC = () => {
     input.setAttribute("capture", "camera");
     input.click();
   }, []);
+
+  const [content, setContent] = useState("");
+  const handleCreateTweet = useCallback(() => {
+    mutate({
+      content,
+    });
+  }, [content, mutate]);
 
   return (
     <div className="grid grid-cols-12  mx-5 mt-4">
@@ -33,6 +42,8 @@ const PostCard: React.FC = () => {
       </div>
       <div className="col-span-11">
         <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
           name="tweet"
           rows={3}
           className="w-full bg-transparent text-lg px-3 border-b border-slate-700"
@@ -43,7 +54,10 @@ const PostCard: React.FC = () => {
             className="text-xl hover:cursor-pointer"
             onClick={HandleUploadImage}
           />
-          <button className="bg-[#253d4d] p-1 rounded-full  mt-2 hover:bg-sky-600 text-sm hover:cursor-pointer">
+          <button
+            onClick={handleCreateTweet}
+            className="bg-[#253d4d] p-1 rounded-full  mt-2 hover:bg-sky-600 text-sm hover:cursor-pointer"
+          >
             Tweet
           </button>
         </div>

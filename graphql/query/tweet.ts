@@ -5,7 +5,7 @@ export const getAllTweetsQuery = gql`
     getAllTweets {
       id
       content
-      imageURL
+      imageURl
       author {
         firstName
         lastName
