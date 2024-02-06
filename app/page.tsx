@@ -1,17 +1,21 @@
 import FeedCard from "@/components/feedCard";
-import React from "react";
+import React, { useCallback } from "react";
 import { BiHomeCircle } from "react-icons/bi";
 import { BsTwitter, BsHash, BsEnvelope } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { CiCircleMore } from "react-icons/ci";
 import { PiBookmarkSimple, PiMoney } from "react-icons/pi";
-// import {
-//   HandleOnSuccess,
-//   HandleOnError,
-// } from "@/components/FeedCard/googleLogin";
+import { HandleOnSuccess, HandleOnError } from "@/components/googleLogin";
 
 import { RiNotification2Line } from "react-icons/ri";
-// import { GoogleLogin } from "@react-oauth/google";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import { useCurrentUser } from "@/clients/hooks/user";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  UserDetails,
+  BadgeOnDownleftSidebar,
+} from "@/app/initial-data/userDetails";
+import PostCard from "@/components/postCard";
 
 interface twitterSidebar {
   title: String;
@@ -54,12 +58,10 @@ const sideBarMenuItems: twitterSidebar[] = [
 ];
 
 export default function Home() {
-  // const { user } = useCurrentUser();
-  // console.log(user);
   return (
     <div>
-      <div className="grid grid-cols-12  h-screen w-screen px-56 ">
-        <div className="col-span-3    pt-0 border-l-100">
+      <div className="grid grid-cols-12  h-screen w-screen px-56  ">
+        <div className="col-span-3    pt-0 border-l-100 relative ">
           <div className="text-3xl transtion-smooth hover:bg-slate-600 rounded-full text-wrap h-fit w-fit p-1 cursor-pointer transition-all">
             <BsTwitter />
           </div>
@@ -67,7 +69,7 @@ export default function Home() {
             <ul className="">
               {sideBarMenuItems.map((item) => (
                 <li
-                  className=" hover:bg-slate-600 rounded-full text-lg flex justify-start items-center gap-2 h-fit w-fit p-2 py-1 cursor-pointer transition-all mt-3 "
+                  className=" hover:bg-slate-600 rounded-full text-lg text- flex justify-start items-center gap-2 h-fit w-fit p-2 py-1 cursor-pointer transition-all mt-2 "
                   key={Math.floor(Math.random() * 1000000 + 1)}
                 >
                   <span>{item.icon}</span>
@@ -81,8 +83,12 @@ export default function Home() {
               </button>
             </div>
           </div>
+          <div className=" text-sm mt-5  absolute bottom-1">
+            <BadgeOnDownleftSidebar />
+          </div>
         </div>
         <div className="col-span-6 border-r-[0.2px] border-l-[0.2px] border-gray-600 h-screen  overflow-auto no-scrollbar">
+          <PostCard />
           <FeedCard />
           <FeedCard />
           <FeedCard />
@@ -90,11 +96,7 @@ export default function Home() {
           <FeedCard />
         </div>
         <div className="col-span-3 p-5">
-          <div className="p-5 bg-slate-900 rounded-xl">
-            <h1>New Here?</h1>
-
-            {/* <GoogleLogin onSuccess={HandleOnSuccess} onError={HandleOnError} /> */}
-          </div>
+          <UserDetails />
         </div>
       </div>
     </div>

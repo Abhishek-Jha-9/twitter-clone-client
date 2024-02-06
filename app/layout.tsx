@@ -4,12 +4,14 @@ import "./globals.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 
-// import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-const inter = Inter({ subsets: ["latin"] });
-const quickSand = Quicksand({ subsets: ["latin"] });
+import { QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
-// const queryClient = new QueryClient();
+const inter = Inter({ subsets: ["latin"] });
+// const quickSand = Quicksand({ subsets: ["latin"] });
+
+const queryClient = new QueryClient();
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,14 +24,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // <QueryClientProvider client={queryClient}>
     <html lang="en">
-      <GoogleOAuthProvider clientId="149769373869-p2jvddjsbi0ab67d1u7b6q0adhcj606i.apps.googleusercontent.com">
-        <body className={inter.className}>{children}</body>
-        <Toaster />
-        {/* <ReactQueryDevtools /> */}
-      </GoogleOAuthProvider>
+      <body className={inter.className}>
+        <ReactQueryProvider>
+          <GoogleOAuthProvider clientId="149769373869-p2jvddjsbi0ab67d1u7b6q0adhcj606i.apps.googleusercontent.com">
+            {children}
+            <Toaster />
+            {/* <ReactQueryDevtools /> */}
+          </GoogleOAuthProvider>
+        </ReactQueryProvider>
+      </body>
     </html>
-    // </QueryClientProvider>
   );
 }

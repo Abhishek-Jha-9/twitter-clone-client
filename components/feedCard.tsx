@@ -7,16 +7,17 @@ import { AiOutlineHeart } from "react-icons/ai";
 const FeedCard: React.FC = () => {
   return (
     <div className=" border border-gray-600 border-x-0 border-b-0 p-5 hover:bg-slate-950 transition-all cursor-pointer ">
-      <div className="grid grid-cols-12">
-        <div className="col-span-1">
+      <div className="grid grid-cols-12 gap-1">
+        <div className="col-span-1 ">
           <Image
             src="https://avatars.githubusercontent.com/u/91289928?v=4"
             alt="user-image"
-            height={50}
-            width={50}
+            height={40}
+            width={40}
+            className="rounded-full"
           />
         </div>
-        <div className="col-span-11 text-base">
+        <div className="col-span-11 text-base ml-3">
           <h5>Abhishek R Jha</h5>
 
           <p>

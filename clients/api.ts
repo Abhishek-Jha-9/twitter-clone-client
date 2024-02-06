@@ -6,7 +6,9 @@ export const graphqlClient = new GraphQLClient(
   "http://localhost:8000/graphql",
   {
     headers: () => ({
-      Authorization: `Bearer ${window.localStorage.getItem("__Twitter-Clone-Token_")}`,
+      Authorization: isClient
+        ? `Bearer ${window.localStorage.getItem("__Twitter-Clone-Token_")}`
+        : "",
     }),
   }
 );
