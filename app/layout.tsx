@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Quicksand } from "next/font/google";
 import "./globals.css";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Toaster } from "react-hot-toast";
 
+// import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 const inter = Inter({ subsets: ["latin"] });
+const quickSand = Quicksand({ subsets: ["latin"] });
+
+// const queryClient = new QueryClient();
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +22,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // <QueryClientProvider client={queryClient}>
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <GoogleOAuthProvider clientId="149769373869-p2jvddjsbi0ab67d1u7b6q0adhcj606i.apps.googleusercontent.com">
+        <body className={inter.className}>{children}</body>
+        <Toaster />
+        {/* <ReactQueryDevtools /> */}
+      </GoogleOAuthProvider>
     </html>
+    // </QueryClientProvider>
   );
 }
