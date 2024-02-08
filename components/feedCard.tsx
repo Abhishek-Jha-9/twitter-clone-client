@@ -6,6 +6,7 @@ import { FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Tweet } from "@/gql/graphql";
 import { useGetAllTweets } from "@/clients/hooks/tweet";
+import Link from "next/link";
 
 interface FeedCardProps {
   data: Tweet;
@@ -14,6 +15,7 @@ interface FeedCardProps {
 const FeedCard: React.FC<FeedCardProps> = (props) => {
   // const { tweet = [] } = useGetAllTweets();
   const { data } = props;
+  console.log(data);
 
   return (
     <div className=" border border-gray-600 border-x-0 border-b-0 p-5 hover:bg-slate-950 transition-all cursor-pointer ">
@@ -31,7 +33,9 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
         </div>
         <div className="col-span-11 text-base ml-3">
           <h5>
-            {data?.author?.firstName} {data?.author?.lastName}
+            <Link href={`/${data.author?.id}`}>
+              {data?.author?.firstName} {data?.author?.lastName}
+            </Link>
           </h5>
 
           <p>{data?.content}</p>

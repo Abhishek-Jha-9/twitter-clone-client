@@ -27,19 +27,32 @@ function BadgeOnDownleftSidebar() {
   return (
     <div className="flex gap-2 rounded-full bg-gray-800 px-3 py-2 hover:bg-gray-600 transition-all">
       {user && (
-        <div className="rounded-full h-fit w-fit">
-          {user && user?.profileImageURL && (
-            <Image
-              src={user?.profileImageURL}
-              height={35}
-              width={35}
-              alt="user-image"
-              className="rounded-full"
-            />
-          )}
+        <div>
+          <div className=" block sm:hidden rounded-full h-fit w-fit">
+            {user && user?.profileImageURL && (
+              <Image
+                src={user?.profileImageURL}
+                height={35}
+                width={35}
+                alt="user-image"
+                className="rounded-full"
+              />
+            )}
+          </div>
+          <div className=" hidden sm:block rounded-full  p-0 sm:h-fit sm:w-fit ">
+            {user && user?.profileImageURL && (
+              <Image
+                src={user?.profileImageURL}
+                height={35}
+                width={35}
+                alt="user-image"
+                className="rounded-full"
+              />
+            )}
+          </div>
         </div>
       )}
-      <div>
+      <div className=" hidden sm:block ">
         <p>
           {user?.firstName} {user?.lastName}
         </p>
