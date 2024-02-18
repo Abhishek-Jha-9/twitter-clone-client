@@ -16,10 +16,30 @@ export const getCurrentUserQuery = gql`
       firstName
       lastName
       profileImageURL
+      recommendedUsers {
+        id
+        firstName
+        lastName
+        profileImageURL
+      }
+      followers {
+        id
+        firstName
+        lastName
+        profileImageURL
+      }
+      following {
+        id
+        firstName
+        lastName
+        profileImageURL
+      }
       tweets {
         id
         content
+        imageURL
         author {
+          id
           firstName
           lastName
           profileImageURL
@@ -34,12 +54,32 @@ export const getUserByIdQuery = gql`
   query GetUserById($id: ID!) {
     getUserById(id: $id) {
       id
+      email
       firstName
       lastName
       profileImageURL
+      recommendedUsers {
+        id
+        firstName
+        lastName
+        profileImageURL
+      }
+      followers {
+        id
+        firstName
+        lastName
+        profileImageURL
+      }
+      following {
+        id
+        firstName
+        lastName
+        profileImageURL
+      }
       tweets {
         id
         content
+        imageURL
         author {
           id
           firstName

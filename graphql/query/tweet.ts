@@ -1,11 +1,12 @@
 import gql from "graphql-tag";
 
 export const getAllTweetsQuery = gql`
+  #graphql
   query GetAllTweets {
     getAllTweets {
       id
       content
-      imageURl
+      imageURL
       author {
         id
         firstName
@@ -15,3 +16,13 @@ export const getAllTweetsQuery = gql`
     }
   }
 `;
+
+export const getSignedURLForTweetsQuery = gql`
+  #graphql
+  query GetSignedURL($imageName: String, $imageType: String) {
+    getSignedURLForTweet(imageName: $imageName, imageType: $imageType)
+  }
+`;
+// query Query($imageName: String, $imageType: String) {
+//   getSignedURLForTweet(imageName: $imageName, imageType: $imageType)
+// }

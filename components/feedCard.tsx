@@ -5,7 +5,7 @@ import { BiMessageRounded, BiUpload } from "react-icons/bi";
 import { FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Tweet } from "@/gql/graphql";
-import { useGetAllTweets } from "@/clients/hooks/tweet";
+// import { useGetAllTweets } from "@/clients/hooks/tweet";
 import Link from "next/link";
 
 interface FeedCardProps {
@@ -13,9 +13,7 @@ interface FeedCardProps {
 }
 
 const FeedCard: React.FC<FeedCardProps> = (props) => {
-  // const { tweet = [] } = useGetAllTweets();
   const { data } = props;
-  console.log(data);
 
   return (
     <div className=" border border-gray-600 border-x-0 border-b-0 p-5 hover:bg-slate-950 transition-all cursor-pointer ">
@@ -39,6 +37,9 @@ const FeedCard: React.FC<FeedCardProps> = (props) => {
           </h5>
 
           <p>{data?.content}</p>
+          {data.imageURL && (
+            <Image src={data.imageURL} alt="image" height={250} width={250} />
+          )}
           <div className="flex justify-between mt-5 text-base  items-center mr-16">
             <div>
               <BiMessageRounded />

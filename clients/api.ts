@@ -12,6 +12,3 @@ export const graphqlClient = new GraphQLClient(
     }),
   }
 );
-
-// console.log("inside the api.ts file");
-// console.log(graphqlClient);
